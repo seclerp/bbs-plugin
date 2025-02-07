@@ -7,9 +7,11 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <resource-bundle>messages.BbsMessages</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
         <configurationType implementation="com.github.seclerp.bbsplugin.run.BbsRunConfigurationType" />
+        
+        <postStartupActivity implementation="com.github.seclerp.bbsplugin.configuration.BbsConfigurationHost" />
     </extensions>
 </idea-plugin>
