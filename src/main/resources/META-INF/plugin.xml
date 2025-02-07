@@ -5,14 +5,11 @@
     <vendor>seclerp</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.seclerp.bbsplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <configurationType implementation="com.github.seclerp.bbsplugin.run.BbsRunConfigurationType" />
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.seclerp.bbsplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
 </idea-plugin>

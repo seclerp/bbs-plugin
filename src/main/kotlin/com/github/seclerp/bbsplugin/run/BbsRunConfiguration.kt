@@ -1,0 +1,41 @@
+package com.github.seclerp.bbsplugin.run
+
+import com.github.seclerp.bbsplugin.BbsScriptUtils
+import com.intellij.execution.Executor
+import com.intellij.execution.configurations.ConfigurationFactory
+import com.intellij.execution.configurations.RunConfigurationBase
+import com.intellij.execution.configurations.RunConfigurationOptions
+import com.intellij.execution.configurations.RuntimeConfigurationError
+import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.openapi.project.Project
+import kotlin.jvm.java
+
+class BbsRunConfiguration(
+    private val project: Project,
+    factory: ConfigurationFactory,
+    name: String
+) : RunConfigurationBase<BbsRunConfigurationOptions>(project, factory, name) {
+
+    var profile: String?
+        get() = options.profile
+        set(value) { options.profile = value }
+
+    var entryPoint: String?
+        get() = options.entryPoint
+        set(value) { options.entryPoint = value }
+
+    override fun getOptions() = super.getOptions() as BbsRunConfigurationOptions
+
+    override fun getOptionsClass(): Class<out RunConfigurationOptions?> = BbsRunConfigurationOptions::class.java
+
+    override fun checkConfiguration() {
+        if (!BbsScriptUtils.scriptExists(project)) {
+            throw RuntimeConfigurationError("BBS script can't be found at '${BbsScriptUtils.RELATIVE_SCRIPT_PATH}'. Is it a monorepo project/solution? ")
+        }
+    }
+
+    override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment) =
+        BbsRunProfileState(this, executionEnvironment)
+
+    override fun getConfigurationEditor() = BbsRunConfigurationEditor()
+}
