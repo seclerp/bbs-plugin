@@ -7,14 +7,15 @@ import kotlin.io.path.Path
  * All paths are either absolute or relative to the monorepo Git root directory.
  */
 object BbsPaths {
-    val BBS_CMD = Path("dotnet/bbs.cmd")
-    val BBS_USER_SETTINGS_FILE get() = BBS_APPDATA_FOLDER.resolve("IntelliJBBS").resolve("settings.json")
+    val bbsCmd = Path("dotnet").resolve("bbs.cmd")
+    val userSettingsFile get() = bbsAppDataFolder.resolve("settings.user.json")
+    val userProfilesDirectory get() = bbsAppDataFolder.resolve("profiles")
 
-    val BBS_APPDATA_FOLDER get() = USER_APPDATA_FOLDER.resolve("JetBrains").resolve("Bbs")
+    val bbsAppDataFolder get() = userAppDataFolder.resolve("JetBrains").resolve("Bbs")
 
-    private val USER_APPDATA_FOLDER get() = when {
+    private val userAppDataFolder get() = when {
         SystemInfo.isWindows -> Path(System.getenv("APPDATA")!!)
         SystemInfo.isMac -> Path(System.getProperty("user.home")).resolve("Library/Application Data")
-        else -> Path(System.getProperty("user.home")).resolve("/.local/share")
+        else -> Path(System.getProperty("user.home")).resolve(".local/share")
     }
 }

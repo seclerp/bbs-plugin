@@ -12,6 +12,6 @@
     <extensions defaultExtensionNs="com.intellij">
         <configurationType implementation="com.github.seclerp.bbsplugin.run.BbsRunConfigurationType" />
         
-        <postStartupActivity implementation="com.github.seclerp.bbsplugin.configuration.BbsConfigurationHost" />
+        <postStartupActivity implementation="com.github.seclerp.bbsplugin.configuration.BbsFileWatcherActivity" />
     </extensions>
 </idea-plugin>

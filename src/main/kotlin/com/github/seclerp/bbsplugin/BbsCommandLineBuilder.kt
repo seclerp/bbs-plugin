@@ -2,6 +2,7 @@ package com.github.seclerp.bbsplugin
 
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
+import kotlin.io.path.pathString
 
 class BbsCommandLineBuilder(private val project: Project, private val entryPoint: String) {
     private var profile = "."
@@ -12,7 +13,7 @@ class BbsCommandLineBuilder(private val project: Project, private val entryPoint
     }
 
     fun build(): GeneralCommandLine {
-        return GeneralCommandLine(BbsScriptUtils.resolveScriptPath(project).path)
+        return GeneralCommandLine(BbsScriptUtils.resolveScriptPath(project).pathString)
             .withParameters(entryPoint)
             .withParameters(profile)
     }

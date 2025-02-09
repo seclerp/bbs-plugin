@@ -1,5 +1,6 @@
 package com.github.seclerp.bbsplugin.run
 
+import com.github.seclerp.bbsplugin.BbsPaths
 import com.github.seclerp.bbsplugin.BbsScriptUtils
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
@@ -30,12 +31,12 @@ class BbsRunConfiguration(
 
     override fun checkConfiguration() {
         if (!BbsScriptUtils.scriptExists(project)) {
-            throw RuntimeConfigurationError("BBS script can't be found at '${BbsScriptUtils.RELATIVE_SCRIPT_PATH}'. Is it a monorepo project/solution? ")
+            throw RuntimeConfigurationError("BBS script can't be found at '${BbsPaths.bbsCmd}'. Is it a monorepo project/solution? ")
         }
     }
 
     override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment) =
         BbsRunProfileState(this, executionEnvironment)
 
-    override fun getConfigurationEditor() = BbsRunConfigurationEditor()
+    override fun getConfigurationEditor() = BbsRunConfigurationEditor(project)
 }

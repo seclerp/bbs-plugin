@@ -1,11 +1,17 @@
 package com.github.seclerp.bbsplugin.configuration
 
+import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.service
+import com.intellij.openapi.observable.properties.AtomicProperty
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.startup.ProjectActivity
-import com.intellij.openapi.vfs.LocalFileSystem
 
-class BbsConfigurationHost : ProjectActivity {
-    override suspend fun execute(project: Project) {
-        LocalFileSystem.getInstance().refreshAndFindFileByPath(project.basePath!!)
+@Service(Service.Level.PROJECT)
+class BbsConfigurationHost {
+    companion object {
+        fun getInstance(project: Project) = project.service<BbsConfigurationHost>()
     }
+
+    val selectedProfilesPerProject = AtomicProperty(mapOf<String, String>())
+    val profiles = AtomicProperty(listOf<String>())
+    val entryPoints = AtomicProperty(BbsEntryPoints.allEntryPoints.toList())
 }
