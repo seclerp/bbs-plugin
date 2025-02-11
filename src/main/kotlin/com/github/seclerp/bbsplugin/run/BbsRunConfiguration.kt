@@ -26,6 +26,10 @@ class BbsRunConfiguration(
         get() = options.entryPoint
         set(value) { options.entryPoint = value }
 
+    var additionalArguments: String?
+        get() = options.additionalArguments
+        set(value) { options.additionalArguments = value }
+
     override fun getOptions() = super.getOptions() as BbsRunConfigurationOptions
 
     override fun getOptionsClass(): Class<out RunConfigurationOptions?> = BbsRunConfigurationOptions::class.java

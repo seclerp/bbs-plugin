@@ -28,15 +28,18 @@ class BbsRunConfigurationEditor(private val project: Project) : LifetimedSetting
     private val configurationHost by lazy { BbsConfigurationHost.getInstance(project) }
     private val profile = AtomicProperty("")
     private val entryPoint = AtomicProperty("")
+    private val additionalArguments = AtomicProperty("")
 
     override fun resetEditorFrom(configuration: BbsRunConfiguration) {
         profile.set(configuration.profile ?: "")
         entryPoint.set(configuration.entryPoint ?: "")
+        additionalArguments.set(configuration.additionalArguments ?: "")
     }
 
     override fun applyEditorTo(configuration: BbsRunConfiguration) {
         configuration.profile = profile.get()
         configuration.entryPoint = entryPoint.get()
+        configuration.additionalArguments = additionalArguments.get()
     }
 
     override fun createEditor(lifetime: Lifetime): JComponent {
@@ -50,6 +53,11 @@ class BbsRunConfigurationEditor(private val project: Project) : LifetimedSetting
                 cell(createEntryPointEditor())
                     .align(AlignX.FILL)
                     .bindText(entryPoint)
+            }
+            row("Additional arguments") {
+                cell(createAdditionalArgumentsEditor(lifetime))
+                    .align(AlignX.FILL)
+                    .bindText(additionalArguments)
             }
         }
     }
@@ -83,5 +91,31 @@ class BbsRunConfigurationEditor(private val project: Project) : LifetimedSetting
                 }
             }
         }
+    }
+
+    private fun createAdditionalArgumentsEditor(lifetime: Lifetime): CommandLineField {
+        val commandLineInfo = object : CommandLineInfo {
+            override val dialogTitle = "bbs.cmd"
+            override val dialogTooltip = "Show BBS.cmd command line reference"
+            override val fieldEmptyState = "Custom BBS.cmd arguments"
+            override val tablesInfo: List<CompletionTableInfo> = listOf(
+                object : CompletionTableInfo {
+                    override val emptyState = "No values"
+                    override val dataColumnIcon = null
+                    override val dataColumnName = "Argument"
+                    override val descriptionColumnIcon = null
+                    override val descriptionColumnName = "Description"
+
+                    override suspend fun collectCompletionInfo() =
+                        listOf(TextCompletionInfo("--help", "Show help"))
+
+                    override suspend fun collectTableCompletionInfo() = collectCompletionInfo()
+                }
+            )
+            override val settingsName = null
+            override val settingsHint = null
+        }
+
+        return CommandLineField(project, commandLineInfo, lifetime.createNestedDisposable())
     }
 }
