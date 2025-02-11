@@ -13,7 +13,7 @@ class BbsCommandLineBuilder(private val project: Project, private val entryPoint
     }
 
     fun build(): GeneralCommandLine {
-        return GeneralCommandLine(BbsScriptUtils.resolveScriptPath(project).pathString)
+        return GeneralCommandLine(BbsPaths.resolveScriptPath(project).pathString)
             .withParameters(entryPoint)
             .withParameters(profile)
     }
