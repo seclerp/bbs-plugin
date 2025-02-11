@@ -30,5 +30,6 @@ class BbsCommandLineBuilder(private val project: Project, private val entryPoint
                 withParameters(additionalArguments.trimStart().toString())
             }
             .withCharset(Charsets.UTF_8)
+            .withWorkDirectory(BbsPaths.resolveMonorepoRoot(project).pathString)
     }
 }
