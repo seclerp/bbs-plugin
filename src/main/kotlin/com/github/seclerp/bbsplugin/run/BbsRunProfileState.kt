@@ -5,8 +5,11 @@ import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.process.*
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.diagnostic.logger
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
+import com.intellij.ui.AppIcon
 import com.intellij.util.applyIf
+import com.intellij.util.ui.UIUtil
 
 class BbsRunProfileState(
     private val configuration: BbsRunConfiguration,
@@ -44,6 +47,7 @@ class BbsRunProfileState(
 
                     override fun processTerminated(event: ProcessEvent) {
                         logger.debug("bbs.cmd - TERMINATED: handler - ${event.processHandler}\nexitCode - ${event.exitCode}")
+                        notifyBbsBuildFinished(environment.project, event.exitCode == 0)
                     }
 
                     override fun startNotified(event: ProcessEvent) {
@@ -56,6 +60,19 @@ class BbsRunProfileState(
                 }
             )
             ProcessTerminatedListener.attach(this, environment.project)
+        }
+    }
+
+    private fun notifyBbsBuildFinished(project: Project, success: Boolean) {
+        UIUtil.invokeLaterIfNeeded {
+            val appIcon = AppIcon.getInstance()
+            if (!success) {
+                appIcon.setErrorBadge(project, "1")
+                appIcon.requestAttention(project, true)
+            } else {
+                appIcon.setOkBadge(project, true)
+                appIcon.requestAttention(project, false)
+            }
         }
     }
 }
