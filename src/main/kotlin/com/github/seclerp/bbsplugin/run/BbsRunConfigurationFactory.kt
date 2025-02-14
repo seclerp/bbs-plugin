@@ -2,7 +2,6 @@ package com.github.seclerp.bbsplugin.run
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.project.Project
-import org.jetbrains.annotations.NonNls
 
 class BbsRunConfigurationFactory(private val type: BbsRunConfigurationType) : ConfigurationFactory(type) {
     override fun getId() = type.id
