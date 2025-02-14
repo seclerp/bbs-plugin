@@ -1,0 +1,1 @@
+This is just a fake BBS script for manual test simplifying process.
