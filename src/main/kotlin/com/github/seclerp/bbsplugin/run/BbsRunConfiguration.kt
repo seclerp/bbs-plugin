@@ -35,9 +35,14 @@ class BbsRunConfiguration(
     override fun getOptionsClass(): Class<out RunConfigurationOptions?> = BbsRunConfigurationOptions::class.java
 
     override fun checkConfiguration() {
-        if (!BbsScriptUtils.scriptExists(project)) {
+        if (!BbsScriptUtils.scriptExists(project))
             throw RuntimeConfigurationError("BBS script can't be found at '${BbsPaths.bbsCmd}'. Is it a monorepo project/solution? ")
-        }
+
+        if (profile.isNullOrBlank())
+            throw RuntimeConfigurationError("Profile should not be empty. Use `.` as a default profile placeholder.")
+
+        if (entryPoint.isNullOrBlank())
+            throw RuntimeConfigurationError("Entry point should not be empty.")
     }
 
     override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment) =
