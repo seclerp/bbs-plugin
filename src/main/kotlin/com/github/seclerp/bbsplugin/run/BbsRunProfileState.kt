@@ -69,7 +69,10 @@ class BbsRunProfileState(
     private fun notifyBbsBuildFinished(project: Project, entryPoint: String, success: Boolean) {
         val frame = WindowManager.getInstance().getFrame(project)
         if (frame != null && !frame.hasFocus()) {
-            SystemNotifications.getInstance().notify("BBS", "BBS Build", if (success) "$entryPoint succeeded" else "$entryPoint failed")
+            val message =
+                if (success) "\"$entryPoint\" succeeded"
+                else "\"$entryPoint\" failed"
+            SystemNotifications.getInstance().notify("BBS", "BBS Build", message)
         }
 
         UIUtil.invokeLaterIfNeeded {
