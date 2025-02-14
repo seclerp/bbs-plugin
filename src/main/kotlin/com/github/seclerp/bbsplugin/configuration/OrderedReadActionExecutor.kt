@@ -1,5 +1,6 @@
 package com.github.seclerp.bbsplugin.configuration
 
+import com.intellij.openapi.application.readAction
 import fleet.util.logging.logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -8,7 +9,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
-class OrderedTaskExecutor(private val scope: CoroutineScope) {
+class OrderedReadActionExecutor(private val scope: CoroutineScope) {
     private val updateChannel = Channel<() -> Unit>(Channel.Factory.UNLIMITED)
 
     init {
@@ -18,7 +19,9 @@ class OrderedTaskExecutor(private val scope: CoroutineScope) {
         scope.launch(Dispatchers.Default) {
             updateChannel.receiveAsFlow().collect { task ->
                 try {
-                    task()
+                    readAction {
+                        task()
+                    }
                 } catch (e: Exception) {
                     logger<BbsFileWatcherActivity>().error(e)
                 }
@@ -26,7 +29,6 @@ class OrderedTaskExecutor(private val scope: CoroutineScope) {
         }
     }
 
-    fun enqueue(task: () -> Unit) = scope.launch(Dispatchers.Default) {
+    fun enqueue(task: () -> Unit) =
         updateChannel.trySend(task)
-    }
 }

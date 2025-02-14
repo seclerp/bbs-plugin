@@ -2,7 +2,7 @@ package com.github.seclerp.bbsplugin.configuration
 
 import com.github.seclerp.bbsplugin.BbsPaths
 import com.github.seclerp.bbsplugin.settings.BbsProfilesProvider
-import com.github.seclerp.bbsplugin.settings.BbsUserSettingsProvider
+import com.github.seclerp.bbsplugin.settings.BbsUserSettingsManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.io.toNioPathOrNull
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -13,9 +13,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlin.collections.forEach
 import kotlin.io.path.pathString
 
-class BbsFileWatcher(private val project: Project, private val scope: CoroutineScope) {
-    private val executor = OrderedTaskExecutor(scope)
+class BbsFileWatcher(
+    private val project: Project,
+    private val scope: CoroutineScope
+) {
+    private val executor = OrderedReadActionExecutor(scope)
     private val configurationHost by lazy { BbsConfigurationHost.getInstance(project) }
+    private val vfs by lazy { VirtualFileManager.getInstance() }
 
     fun launch() {
         includeBbsAppDataUpdates()
@@ -46,7 +50,7 @@ class BbsFileWatcher(private val project: Project, private val scope: CoroutineS
     }
 
     private fun updateUserSettingsFile() {
-        val updatedFile = BbsUserSettingsProvider.loadFile(BbsPaths.userSettingsFile)
+        val updatedFile = BbsUserSettingsManager.load(vfs.findFileByNioPath(BbsPaths.userSettingsFile) ?: return)
         configurationHost.selectedProfilesPerProject.set(updatedFile.selectedProfile?.toMap() ?: emptyMap())
     }
 
