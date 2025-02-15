@@ -10,6 +10,7 @@ import com.intellij.execution.configurations.RuntimeConfigurationError
 import com.intellij.execution.configurations.WithoutOwnBeforeRunSteps
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.project.Project
+import org.jetbrains.annotations.NonNls
 import kotlin.jvm.java
 
 class BbsRunConfiguration(
@@ -29,6 +30,7 @@ class BbsRunConfiguration(
     var additionalArguments: String?
         get() = options.additionalArguments
         set(value) { options.additionalArguments = value }
+
 
     override fun getOptions() = super.getOptions() as BbsRunConfigurationOptions
 

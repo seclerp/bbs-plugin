@@ -6,5 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BbsUserSettingsFile(
     @SerialName("SelectedProfile")
-    val selectedProfile: Map<String, String>?
+    val selectedProfile: Map<String, String>?,
+
+    @SerialName("EntryPoints")
+    val entryPoints: List<String>?
 )

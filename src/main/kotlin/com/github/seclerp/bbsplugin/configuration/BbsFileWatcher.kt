@@ -52,6 +52,7 @@ class BbsFileWatcher(
     private fun updateUserSettingsFile() {
         val updatedFile = BbsUserSettingsManager.load(vfs.findFileByNioPath(BbsPaths.userSettingsFile) ?: return)
         configurationHost.selectedProfilesPerProject.set(updatedFile.selectedProfile?.toMap() ?: emptyMap())
+        configurationHost.selectedEntryPoints.set(updatedFile.entryPoints?.toList() ?: emptyList())
     }
 
     private fun updateProfiles() {

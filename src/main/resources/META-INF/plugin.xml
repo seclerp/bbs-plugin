@@ -14,4 +14,14 @@
         
         <postStartupActivity implementation="com.github.seclerp.bbsplugin.configuration.BbsFileWatcherActivity" />
     </extensions>
+
+    <actions resource-bundle="messages.BbsMessages">
+        <group
+            id="BbsActionGroup"
+            class="com.github.seclerp.bbsplugin.actions.BbsActionGroup"
+            popup="true">
+            <add-to-group group-id="ProjectViewPopupMenu" />
+            <add-to-group group-id="MainMenu" />
+        </group>
+    </actions>
 </idea-plugin>

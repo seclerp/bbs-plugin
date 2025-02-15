@@ -9,7 +9,6 @@ class BbsRunConfigurationType : ConfigurationTypeBase(
     "Runs bbs.cmd script with specified parameters, if applicable.",
     AllIcons.RunConfigurations.Application
 ) {
-
     init {
         addFactory(BbsRunConfigurationFactory(this))
     }

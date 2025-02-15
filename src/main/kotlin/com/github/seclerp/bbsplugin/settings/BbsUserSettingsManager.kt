@@ -2,7 +2,6 @@ package com.github.seclerp.bbsplugin.settings
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.readText
-import com.intellij.openapi.vfs.writeText
 import com.intellij.util.concurrency.annotations.RequiresReadLock
 import com.intellij.util.concurrency.annotations.RequiresWriteLock
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -18,6 +17,4 @@ object BbsUserSettingsManager {
     private val serializer = BbsUserSettingsFile.serializer()
     @RequiresReadLock
     fun load(file: VirtualFile): BbsUserSettingsFile = json.decodeFromString(serializer, file.readText())
-    @RequiresWriteLock
-    fun save(file: VirtualFile, contents: BbsUserSettingsFile) = file.writeText(json.encodeToString(serializer, contents))
 }
