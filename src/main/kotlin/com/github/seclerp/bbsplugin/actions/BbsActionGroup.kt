@@ -1,6 +1,6 @@
 package com.github.seclerp.bbsplugin.actions
 
-import com.github.seclerp.bbsplugin.BbsScriptUtils
+import com.github.seclerp.bbsplugin.environment.BbsScriptUtils
 import com.github.seclerp.bbsplugin.configuration.BbsConfigurationHost
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.ActionUpdateThread

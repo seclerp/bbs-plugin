@@ -1,7 +1,7 @@
-package com.github.seclerp.bbsplugin.run
+package com.github.seclerp.bbsplugin.execution
 
-import com.github.seclerp.bbsplugin.BbsPaths
-import com.github.seclerp.bbsplugin.BbsScriptUtils
+import com.github.seclerp.bbsplugin.environment.BbsPaths
+import com.github.seclerp.bbsplugin.environment.BbsScriptUtils
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfigurationBase
@@ -10,7 +10,6 @@ import com.intellij.execution.configurations.RuntimeConfigurationError
 import com.intellij.execution.configurations.WithoutOwnBeforeRunSteps
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.project.Project
-import org.jetbrains.annotations.NonNls
 import kotlin.jvm.java
 
 class BbsRunConfiguration(

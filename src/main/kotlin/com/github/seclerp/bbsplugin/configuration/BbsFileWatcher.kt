@@ -1,6 +1,6 @@
 package com.github.seclerp.bbsplugin.configuration
 
-import com.github.seclerp.bbsplugin.BbsPaths
+import com.github.seclerp.bbsplugin.environment.BbsPaths
 import com.github.seclerp.bbsplugin.settings.BbsProfilesProvider
 import com.github.seclerp.bbsplugin.settings.BbsUserSettingsManager
 import com.intellij.openapi.project.Project

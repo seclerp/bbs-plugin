@@ -1,4 +1,4 @@
-package com.github.seclerp.bbsplugin
+package com.github.seclerp.bbsplugin.environment
 
 import com.intellij.openapi.project.Project
 import kotlin.io.path.exists

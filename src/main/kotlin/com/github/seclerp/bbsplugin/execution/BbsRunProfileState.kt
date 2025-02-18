@@ -1,6 +1,5 @@
-package com.github.seclerp.bbsplugin.run
+package com.github.seclerp.bbsplugin.execution
 
-import com.github.seclerp.bbsplugin.BbsCommandLineBuilder
 import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.process.*
 import com.intellij.execution.runners.ExecutionEnvironment
@@ -10,7 +9,6 @@ import com.intellij.openapi.util.Key
 import com.intellij.openapi.wm.WindowManager
 import com.intellij.ui.AppIcon
 import com.intellij.ui.SystemNotifications
-import com.intellij.util.applyIf
 import com.intellij.util.ui.UIUtil
 
 class BbsRunProfileState(
@@ -26,11 +24,12 @@ class BbsRunProfileState(
         val additionalArguments = configuration.additionalArguments?.trim() ?: ""
         val entryPoint = configuration.entryPoint?.trim() ?: ""
 
-        val cmdBuilder = BbsCommandLineBuilder(configuration.project, entryPoint)
-            .applyIf(profile != "") { withProfile(profile) }
-            .applyIf(additionalArguments != "") { withArguments(additionalArguments) }
+        val cmd = buildBbsCommand(configuration.project, entryPoint) {
+            setProfile(profile)
+            addArguments(additionalArguments)
+        }
 
-        return ColoredProcessHandler(cmdBuilder.build()).apply {
+        return ColoredProcessHandler(cmd).apply {
             addProcessListener(
                 object : ProcessAdapter() {
                     override fun onTextAvailable(event: ProcessEvent, outputType: Key<*>) {

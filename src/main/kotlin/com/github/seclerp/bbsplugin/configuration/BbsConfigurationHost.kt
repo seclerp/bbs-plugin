@@ -1,6 +1,6 @@
 package com.github.seclerp.bbsplugin.configuration
 
-import com.github.seclerp.bbsplugin.BbsPaths
+import com.github.seclerp.bbsplugin.environment.BbsPaths
 import com.github.seclerp.bbsplugin.JsonSerializer
 import com.intellij.openapi.application.EDT
 import com.intellij.openapi.application.writeAction

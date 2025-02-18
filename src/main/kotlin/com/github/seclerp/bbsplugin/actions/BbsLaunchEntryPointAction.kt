@@ -1,7 +1,7 @@
 package com.github.seclerp.bbsplugin.actions
 
-import com.github.seclerp.bbsplugin.run.BbsRunConfiguration
-import com.github.seclerp.bbsplugin.run.BbsRunConfigurationType
+import com.github.seclerp.bbsplugin.execution.BbsRunConfiguration
+import com.github.seclerp.bbsplugin.execution.BbsRunConfigurationType
 import com.intellij.execution.RunManager
 import com.intellij.execution.RunnerAndConfigurationSettings
 import com.intellij.execution.executors.DefaultRunExecutor

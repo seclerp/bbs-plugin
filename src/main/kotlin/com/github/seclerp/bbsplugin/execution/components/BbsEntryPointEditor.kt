@@ -1,4 +1,4 @@
-package com.github.seclerp.bbsplugin.run.components
+package com.github.seclerp.bbsplugin.execution.components
 
 import com.github.seclerp.bbsplugin.configuration.BbsEntryPoint
 import com.intellij.openapi.externalSystem.service.ui.completion.TextCompletionField

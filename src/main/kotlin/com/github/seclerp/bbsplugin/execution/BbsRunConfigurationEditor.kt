@@ -1,9 +1,9 @@
-package com.github.seclerp.bbsplugin.run
+package com.github.seclerp.bbsplugin.execution
 
 import com.github.seclerp.bbsplugin.configuration.BbsConfigurationHost
-import com.github.seclerp.bbsplugin.run.components.BbsAdditionalArgumentsEditor
-import com.github.seclerp.bbsplugin.run.components.BbsEntryPointEditor
-import com.github.seclerp.bbsplugin.run.components.BbsProfileEditor
+import com.github.seclerp.bbsplugin.execution.components.BbsAdditionalArgumentsEditor
+import com.github.seclerp.bbsplugin.execution.components.BbsEntryPointEditor
+import com.github.seclerp.bbsplugin.execution.components.BbsProfileEditor
 import com.intellij.execution.options.LifetimedSettingsEditor
 import com.intellij.openapi.observable.properties.AtomicProperty
 import com.intellij.openapi.project.Project

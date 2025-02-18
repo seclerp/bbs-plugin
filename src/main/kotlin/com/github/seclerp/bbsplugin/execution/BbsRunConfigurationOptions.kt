@@ -1,4 +1,4 @@
-package com.github.seclerp.bbsplugin.run
+package com.github.seclerp.bbsplugin.execution
 
 import com.intellij.execution.configurations.RunConfigurationOptions
 

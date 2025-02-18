@@ -10,7 +10,7 @@
     <resource-bundle>messages.BbsMessages</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <configurationType implementation="com.github.seclerp.bbsplugin.run.BbsRunConfigurationType" />
+        <configurationType implementation="com.github.seclerp.bbsplugin.execution.BbsRunConfigurationType" />
         
         <postStartupActivity implementation="com.github.seclerp.bbsplugin.configuration.BbsFileWatcherActivity" />
     </extensions>
