@@ -7,15 +7,18 @@ import com.intellij.execution.RunnerAndConfigurationSettings
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.impl.RunManagerImpl
 import com.intellij.execution.runners.ExecutionUtil
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 
-class BbsLaunchEntryPointAction(private val entryPoint: String) : AnAction(entryPoint) {
+class BbsLaunchEntryPointAction(
+    private val entryPoint: String
+) : AnAction(entryPoint, null, AllIcons.Actions.Execute) {
     override fun getActionUpdateThread() = ActionUpdateThread.BGT
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return
-        val runManager = RunManagerImpl.Companion.getInstanceImpl(project)
+        val runManager = RunManager.getInstance(project)
         val settings = runManager.prepareInstantBbsConfiguration(entryPoint)
 
         ExecutionUtil.runConfiguration(settings, DefaultRunExecutor.getRunExecutorInstance())
