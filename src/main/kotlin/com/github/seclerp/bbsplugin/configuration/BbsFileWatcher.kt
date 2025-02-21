@@ -11,6 +11,7 @@ import com.intellij.openapi.vfs.newvfs.BulkFileListener
 import com.intellij.openapi.vfs.newvfs.events.VFileEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlin.collections.forEach
+import kotlin.io.path.Path
 import kotlin.io.path.pathString
 
 class BbsFileWatcher(
@@ -51,7 +52,7 @@ class BbsFileWatcher(
 
     private fun updateUserSettingsFile() {
         val updatedFile = BbsUserSettingsManager.load(vfs.findFileByNioPath(BbsPaths.userSettingsFile) ?: return)
-        configurationHost.selectedProfilesPerProject.set(updatedFile.selectedProfile?.toMap() ?: emptyMap())
+        configurationHost.selectedProfilesPerProject.set(updatedFile.selectedProfile?.mapKeys { Path(it.key) }?.toMap() ?: emptyMap())
         configurationHost.selectedEntryPoints.set(updatedFile.entryPoints?.toList() ?: emptyList())
     }
 

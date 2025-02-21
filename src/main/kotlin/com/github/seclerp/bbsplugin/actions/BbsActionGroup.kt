@@ -6,6 +6,8 @@ import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.Separator
+import com.intellij.openapi.project.Project
 
 class BbsActionGroup : ActionGroup() {
     override fun getActionUpdateThread() = ActionUpdateThread.BGT
@@ -17,7 +19,18 @@ class BbsActionGroup : ActionGroup() {
 
     override fun getChildren(event: AnActionEvent?): Array<out AnAction?> {
         val project = event?.project ?: return emptyArray()
-        val selectedEntryPoints = BbsConfigurationHost.getInstance(project).selectedEntryPoints.get()
-        return selectedEntryPoints.map(::BbsLaunchEntryPointAction).toTypedArray()
+        return buildList {
+            addEntryPoints(project)
+            add(Separator())
+            add(BbsProfilesActionGroup(project))
+        }.toTypedArray()
+    }
+
+    private fun MutableList<AnAction>.addEntryPoints(project: Project) {
+        addAll(BbsConfigurationHost.getInstance(project).selectedEntryPoints
+            .get()
+            .map(::BbsLaunchEntryPointAction)
+        )
     }
 }
+

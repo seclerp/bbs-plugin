@@ -20,8 +20,6 @@ object BbsProfilesProvider {
             )?.map { it.removeSuffix(".json") }
             ?.toMutableList() ?: mutableListOf()
 
-        return profiles.apply {
-            add(0, ".")
-        }
+        return profiles
     }
 }

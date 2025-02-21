@@ -9,5 +9,10 @@ class BbsProfileEditor(
     project: Project?,
     private val profiles: ObservableProperty<List<String>>
 ) : TextCompletionField<String>(project) {
-    override val completionCollector = TextCompletionCollector.Companion.basic { profiles.get() }
+    override val completionCollector = TextCompletionCollector.Companion.basic { getKnownProfileValues() }
+
+    private fun getKnownProfileValues() = buildList {
+        add(".")
+        addAll(profiles.get())
+    }
 }

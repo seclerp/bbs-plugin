@@ -2,6 +2,7 @@ package com.github.seclerp.bbsplugin.configuration
 
 import com.github.seclerp.bbsplugin.environment.BbsPaths
 import com.github.seclerp.bbsplugin.JsonSerializer
+import com.github.seclerp.bbsplugin.environment.BbsProfiles
 import com.intellij.openapi.application.EDT
 import com.intellij.openapi.application.writeAction
 import com.intellij.openapi.components.Service
@@ -22,7 +23,7 @@ import java.nio.file.Path
 import kotlin.io.path.pathString
 
 @Service(Service.Level.PROJECT)
-class BbsConfigurationHost(private val scope: CoroutineScope) {
+class BbsConfigurationHost(private val project: Project, private val scope: CoroutineScope) {
     companion object {
         fun getInstance(project: Project) = project.service<BbsConfigurationHost>()
     }
@@ -30,14 +31,27 @@ class BbsConfigurationHost(private val scope: CoroutineScope) {
     private val vfs by lazy { VirtualFileManager.getInstance() }
 
     val profiles = AtomicProperty(listOf<String>())
-    val selectedProfilesPerProject = AtomicProperty(mapOf<String, String>())
+    val selectedProfilesPerProject = AtomicProperty(mapOf<Path, String>())
+    val selectedProfile = AtomicProperty(BbsProfiles.Default)
     val entryPoints = AtomicProperty(BbsEntryPoints.allEntryPoints.toList())
     val selectedEntryPoints = AtomicProperty(listOf<String>())
 
-    fun setSelectedProfile(repositoryRoot: Path, profile: String) {
+    init {
+        selectedProfilesPerProject.afterChange { value ->
+            val monorepoRoot = BbsPaths.tryResolveMonorepoRoot(project) ?: return@afterChange
+            val selected = value[monorepoRoot]
+            if (selected != null)
+                selectedProfile.set(selected)
+            else
+                selectedProfile.set(BbsProfiles.Default)
+        }
+    }
+
+    fun setSelectedProfile(profile: String) {
+        val monorepoRoot = BbsPaths.tryResolveMonorepoRoot(project) ?: return
         modifyJsonFile(BbsPaths.userSettingsFile) { json ->
             val selectedProfile = (json["SelectedProfile"]?.jsonObject?.toMutableMap() ?: mutableMapOf()).apply {
-                put(repositoryRoot.pathString, JsonPrimitive(profile))
+                put(monorepoRoot.pathString, JsonPrimitive(profile))
             }
 
             JsonObject(json.toMutableMap().apply {
@@ -60,7 +74,7 @@ class BbsConfigurationHost(private val scope: CoroutineScope) {
     private fun modifyJsonFile(path: Path, modifier: (JsonObject) -> JsonObject) {
         scope.launch(Dispatchers.EDT) {
             writeAction {
-                val file = vfs.findFileByNioPath(BbsPaths.userSettingsFile) ?: return@writeAction
+                val file = vfs.findFileByNioPath(path) ?: return@writeAction
                 val json = JsonSerializer.deserialize(file.readText())
                 val modifiedJson = modifier(json)
                 file.writeText(JsonSerializer.serialize(modifiedJson))
