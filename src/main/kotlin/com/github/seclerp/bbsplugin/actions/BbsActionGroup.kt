@@ -22,6 +22,7 @@ class BbsActionGroup : ActionGroup() {
         return buildList {
             addEntryPoints(project)
             add(Separator())
+            add(BbsSelectEntryPointsAction(project))
             add(BbsProfilesActionGroup(project))
         }.toTypedArray()
     }
