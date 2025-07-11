@@ -8,7 +8,7 @@
 ### BBS Execution
 - [x] Configure Profile
 - [x] Configure Entry point
-- [ ] Configure other BBS options
+- [x] Configure other BBS options
 - [x] Configure custom command line arguments
 - [x] Run bbs.cmd process in a Run tool window
 - [x] Send notification after successful/failed build
