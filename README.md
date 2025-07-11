@@ -4,6 +4,8 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 
+<!-- Plugin description -->
+
 A plugin for IntelliJ IDEA and Rider to provide a UI for running internal .NET monorepo build infrastructure (BBS) entrypoints
 
 ## Features
@@ -12,11 +14,13 @@ A plugin for IntelliJ IDEA and Rider to provide a UI for running internal .NET m
 - Get notified when BBS execution completes via the system notification
 - Synchronize enabled entry points and selected profile with the TUI preferences 
 
+<!-- Plugin description end -->
+
 ## Installation
 
 - Using the IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "bbs-plugin"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "BBS UI"</kbd> >
   <kbd>Install</kbd>
   
 - Using JetBrains Marketplace:
