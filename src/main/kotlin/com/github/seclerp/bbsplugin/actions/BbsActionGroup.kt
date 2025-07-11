@@ -7,9 +7,10 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.Separator
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 
-class BbsActionGroup : ActionGroup() {
+class BbsActionGroup : ActionGroup(), DumbAware {
     override fun getActionUpdateThread() = ActionUpdateThread.BGT
 
     override fun update(event: AnActionEvent) {

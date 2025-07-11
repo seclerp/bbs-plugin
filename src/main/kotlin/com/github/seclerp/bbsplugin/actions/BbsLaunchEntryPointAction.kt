@@ -5,16 +5,16 @@ import com.github.seclerp.bbsplugin.execution.BbsRunConfigurationType
 import com.intellij.execution.RunManager
 import com.intellij.execution.RunnerAndConfigurationSettings
 import com.intellij.execution.executors.DefaultRunExecutor
-import com.intellij.execution.impl.RunManagerImpl
 import com.intellij.execution.runners.ExecutionUtil
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.project.DumbAware
 
 class BbsLaunchEntryPointAction(
     private val entryPoint: String
-) : AnAction(entryPoint, null, AllIcons.Actions.Execute) {
+) : AnAction(entryPoint, null, AllIcons.Actions.Execute), DumbAware {
     override fun getActionUpdateThread() = ActionUpdateThread.BGT
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return
