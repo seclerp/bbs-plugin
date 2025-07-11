@@ -1,8 +1,8 @@
 # BBS UI Plugin
 
 ![Build](https://github.com/seclerp/bbs-plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/27894.svg)](https://plugins.jetbrains.com/plugin/27894)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/27894.svg)](https://plugins.jetbrains.com/plugin/27894)
 
 <!-- Plugin description -->
 
