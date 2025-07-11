@@ -36,9 +36,5 @@ class BbsEntryPointEditor(
                     SimpleTextAttributes.GRAYED_ATTRIBUTES)
             }
         }
-
-        private fun toSingleLineString(text: String) = text
-            .replace("\r\n", " ")
-            .replace("\n", " ")
     }
 }
