@@ -1,5 +1,6 @@
 package com.github.seclerp.bbsplugin.execution.components
 
+import com.github.seclerp.bbsplugin.execution.BbsAdditionalCliArguments
 import com.intellij.openapi.externalSystem.service.ui.command.line.CommandLineField
 import com.intellij.openapi.externalSystem.service.ui.command.line.CommandLineInfo
 import com.intellij.openapi.externalSystem.service.ui.command.line.CompletionTableInfo
@@ -25,7 +26,9 @@ object BbsAdditionalArgumentsEditor {
                 override val descriptionColumnName = "Description"
 
                 override suspend fun collectCompletionInfo() =
-                    listOf(TextCompletionInfo("--help", "Show help"))
+                    BbsAdditionalCliArguments.all.map {
+                        TextCompletionInfo(it.value, it.description)
+                    }
 
                 override suspend fun collectTableCompletionInfo() = collectCompletionInfo()
             }
